@@ -609,7 +609,7 @@ void getMinDistanceDirection(Cell cell_arr[][8], int &minDistance, char &minDire
 void floodOpenNeighbours(Cell cell_arr[][8])
 {
 
-    stack<Coordinates> floodStack;
+    stack<Coordinates> floodStack; // the taken path
     int minDistance = mazeSize * 2;
     char minDirection;
     int cellX, cellY;
