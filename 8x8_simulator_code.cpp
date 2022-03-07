@@ -10,7 +10,7 @@
 #include "API.h"
 
 
-int mazeSize = 16; // 16X16
+int mazeSize = 8; // could be changed to 16X16 maze
 int centerX = mazeSize / 2;
 int centerY = mazeSize / 2;
 
@@ -24,16 +24,16 @@ int x = 0, y = 0; // current coordinates
 bool isGoal(int x, int y);
 bool isSafe(int X, int Y);
 void updateposition(char currentMove);
-void exploreCell(Cell cell_arr[][16],int x, int y);
-void initializeMaze(Cell cell_arr[][16]);
+void exploreCell(Cell cell_arr[][8],int x, int y);
+void initializeMaze(Cell cell_arr[][8]);
 
-void findGoal(Cell cell_arr[][16]);
-Cell &getFrontCell(Cell cell_arr[][16]);
-Cell &getLeftCell(Cell cell_arr[][16]);
-Cell &getRightCell(Cell cell_arr[][16]);
-void getMinDistanceDirection(Cell cell_arr[][16], int &minDistance, char &minDirection);
-void floodOpenNeighbours(Cell cell_arr[][16]);
-void moveInDirection(Cell cell_arr[][16], char direction);
+void findGoal(Cell cell_arr[][8]);
+Cell &getFrontCell(Cell cell_arr[][8]);
+Cell &getLeftCell(Cell cell_arr[][8]);
+Cell &getRightCell(Cell cell_arr[][8]);
+void getMinDistanceDirection(Cell cell_arr[][8], int &minDistance, char &minDirection);
+void floodOpenNeighbours(Cell cell_arr[][8]);
+void moveInDirection(Cell cell_arr[][8], char direction);
 
 //---------------------main()--------------
 int main(int argc, char *argv[])
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     cout << "000000" << "\n";
    // vector<vector<Cell> > map(mazeSize, vector<Cell>(mazeSize));
-    Cell cell_arr [16][16];
+    Cell cell_arr [8][8];
 
 
    std::cout << "111111" << "\n";
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 bool isGoal(int x, int y)
 {
 
-    return ((x == 7 || x == 8) && (y == 7 || y == 8));
+    return ((x == 3 || x == 4) && (y == 3 || y == 4));
 }
 
 
@@ -107,7 +107,7 @@ void updateposition(char currentMove)
     }
 }
 
-void exploreCell(Cell cell_arr[][16],int x, int y)
+void exploreCell(Cell cell_arr[][8],int x, int y)
 {
     // map[x][y].setVisited(); // first visit is straight, then right, then left, then back
     if (cell_arr[x][y].getHasBeenExplored())
@@ -148,7 +148,7 @@ void exploreCell(Cell cell_arr[][16],int x, int y)
     }
 }
 
-void initializeMaze(Cell cell_arr[][16])
+void initializeMaze(Cell cell_arr[][8])
 {
     // for (int i = 0; i < mazeSize; i++)
     // {
@@ -176,7 +176,7 @@ void initializeMaze(Cell cell_arr[][16])
 
 
 
-void findGoal(Cell cell_arr[][16] ) // takes coordinates of current cell
+void findGoal(Cell cell_arr[][8] ) // takes coordinates of current cell
 {
     bool destinationFound = false;
     int minDistance;
@@ -189,10 +189,8 @@ void findGoal(Cell cell_arr[][16] ) // takes coordinates of current cell
         minDistance = mazeSize * 2;
         // if goal fount-> exit while loop
         if (isGoal(x, y))
-           { destinationFound = true;
+            destinationFound = true;
 
-		
-		}
         getMinDistanceDirection(cell_arr, minDistance, minDirection);
         // check if reflooding is required
 
@@ -210,7 +208,7 @@ void findGoal(Cell cell_arr[][16] ) // takes coordinates of current cell
 }
 
 // f-move front ,b- move back,r-move right, l-moveleft
-void moveInDirection(Cell cell_arr[][16], char direction)
+void moveInDirection(Cell cell_arr[][8], char direction)
 {
     // move to the  neighbouring cell with the lowest distance cost
     int prevX = x, prevY = y;
@@ -248,7 +246,7 @@ void moveInDirection(Cell cell_arr[][16], char direction)
     cell_arr[x][y].setPrevVisitedCell(&cell_arr[prevX][prevY]);
 }
 // doesnt check if coordinates are within boundaries
-Cell &getFrontCell(Cell cell_arr[][16])
+Cell &getFrontCell(Cell cell_arr[][8])
 {
 
     switch (orientation)
@@ -269,7 +267,7 @@ Cell &getFrontCell(Cell cell_arr[][16])
         return cell_arr[x][y];
     }
 }
-Cell &getLeftCell(Cell cell_arr[][16])
+Cell &getLeftCell(Cell cell_arr[][8])
 {
 
     switch (orientation)
@@ -291,7 +289,7 @@ Cell &getLeftCell(Cell cell_arr[][16])
         ;
     }
 }
-Cell &getRightCell(Cell cell_arr[][16])
+Cell &getRightCell(Cell cell_arr[][8])
 {
 
     switch (orientation)
@@ -314,7 +312,7 @@ Cell &getRightCell(Cell cell_arr[][16])
 }
 
 //get min distance relative to current position and relative position f = front, b = behind, l=left,r=right
-void getMinDistanceDirection(Cell cell_arr[][16], int &minDistance, char &minDirection)
+void getMinDistanceDirection(Cell cell_arr[][8], int &minDistance, char &minDirection)
 {
     if (!API::wallFront())
     {
@@ -344,7 +342,7 @@ void getMinDistanceDirection(Cell cell_arr[][16], int &minDistance, char &minDir
             minDirection = 'r';
         }
     }
-    if (cell_arr[x][y].getPrevVisitedCell() != nullptr)
+    if (cell_arr[x][y].getPrevVisitedCell() != NULL)
     {
         Cell *back = cell_arr[x][y].getPrevVisitedCell();
         if (minDistance > back->getFloodFillCost())
@@ -355,7 +353,7 @@ void getMinDistanceDirection(Cell cell_arr[][16], int &minDistance, char &minDir
     }
 }
 
-void floodOpenNeighbours(Cell cell_arr[][16])
+void floodOpenNeighbours(Cell cell_arr[][8])
 {
 
     stack<Coordinates> floodStack;
