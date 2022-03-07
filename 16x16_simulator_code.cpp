@@ -39,16 +39,13 @@ void moveInDirection(Cell cell_arr[][16], char direction);
 int main(int argc, char *argv[])
 {
 
-    cout << "000000" << "\n";
    // vector<vector<Cell> > map(mazeSize, vector<Cell>(mazeSize));
     Cell cell_arr [16][16];
 
 
-   std::cout << "111111" << "\n";
 
     initializeMaze(cell_arr);
 
-    cout << "22222222" << "\n";
 
 
   findGoal(cell_arr);
@@ -150,10 +147,7 @@ void exploreCell(Cell cell_arr[][16],int x, int y)
 
 void initializeMaze(Cell cell_arr[][16])
 {
-    // for (int i = 0; i < mazeSize; i++)
-    // {
-    //     map[i].reserve(mazeSize);
-    // }
+  
 
     for (int i = 0; i < mazeSize; i++)
     {
