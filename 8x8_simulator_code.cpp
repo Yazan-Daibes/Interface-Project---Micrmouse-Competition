@@ -2,8 +2,8 @@
 #include <string>
 #include "Cell.h"
 #include <stack>
-    #include <iostream>
-    #include <cstdlib>
+#include <iostream>
+#include <cstdlib>
 #include "Coordinates.h"
 
 // #include "StackArray.h"
