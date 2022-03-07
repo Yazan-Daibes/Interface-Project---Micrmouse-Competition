@@ -38,16 +38,8 @@ void moveInDirection(Cell cell_arr[][16], char direction);
 //---------------------main()--------------
 int main(int argc, char *argv[])
 {
-
-   // vector<vector<Cell> > map(mazeSize, vector<Cell>(mazeSize));
     Cell cell_arr [16][16];
-
-
-
     initializeMaze(cell_arr);
-
-
-
   findGoal(cell_arr);
 
   return 0;
